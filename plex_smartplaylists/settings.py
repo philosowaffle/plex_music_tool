@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'smartPlaylists.apps.SmartplaylistsConfig'
 ]
 
 MIDDLEWARE_CLASSES = [
