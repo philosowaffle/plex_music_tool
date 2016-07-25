@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django import forms
 from django.db import models
 
 from django.utils.encoding import python_2_unicode_compatible
@@ -23,6 +24,7 @@ class Playlist(models.Model):
 
     # FIELDS
     name = models.CharField(max_length=50)
+    description = models.CharField(max_length=500)
     query = models.CharField(max_length=350)
     last_updated = models.DateTimeField('last updated')
 
@@ -53,3 +55,15 @@ class Song(models.Model):
             '\nLast Played: {}' \
             '\nPlay Count: {}' \
             '\nLast Updated: {}'.format(self.title, self.artist, self.last_played, self.play_count, self.last_updated)
+
+class DBPathForm(forms.Form):
+
+    # FIELDS
+    db_path = forms.CharField(label='Plex Database Path', max_length=500)
+
+    # HELPERS
+    def __init__(self, *args, **kwargs):
+        super(DBPathForm,self).__init__(*args,**kwargs)
+
+    def __str__(self):
+        return 'Database Path: {}'.format(self.db_path)

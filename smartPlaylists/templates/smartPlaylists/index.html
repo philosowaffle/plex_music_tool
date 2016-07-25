@@ -1,0 +1,26 @@
+<h1>Plex SmartPlaylists</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'smartPlaylists:setDatabasePath' %}" method="post">
+{% csrf_token %}
+{{ db_path_form }}
+<input type="submit" value="Update Path" />
+</form>
+
+<br />
+<br />
+
+<b>Playlists:</b>
+<ul>
+{% for playlist in playlists %}
+    <li>{{ playlist.name }}</li>
+{% endfor %}
+</ul>
+
+<b>Songs:</b>
+<ul>
+{% for song in songs %}
+    <li>{{ song.title }}</li>
+{% endfor %}
+</ul>
