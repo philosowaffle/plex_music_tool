@@ -5,6 +5,8 @@ from django.db import models
 
 from django.utils.encoding import python_2_unicode_compatible
 
+import os
+
 # Create your models here.
 
 @python_2_unicode_compatible
@@ -14,6 +16,8 @@ class Settings(models.Model):
     plex_db_path = models.CharField(max_length=200)
 
     # METHODS
+    def set_db_path(self, new_path):
+        self.plex_db_path = new_path
 
     # HELPERS
     def __str__(self):
@@ -67,3 +71,15 @@ class DBPathForm(forms.Form):
 
     def __str__(self):
         return 'Database Path: {}'.format(self.db_path)
+
+class PlaylistForm(forms.Form):
+
+    # FIELDS
+    name = forms.CharField(label='Name', max_length=30)
+    description = forms.CharField(label='Description', max_length=500)
+    query = forms.CharField(label='Query', max_length=500)
+
+    def __str__(self):
+        return 'Playlist Name: {}' \
+                '\nPlaylist Description: {}' \
+                '\nPlaylist Query: {}'.format(self.db_path)

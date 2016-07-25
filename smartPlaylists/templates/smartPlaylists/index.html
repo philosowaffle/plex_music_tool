@@ -11,7 +11,13 @@
 <br />
 <br />
 
-<b>Playlists:</b>
+<b>New Playlist:</b>
+<form action="{% url 'smartPlaylists:addPlaylist' %}" method="post">
+{% csrf_token %}
+{{ playlist_form }}
+<input type="submit" value="Create Playlist" />
+</form>
+
 <ul>
 {% for playlist in playlists %}
     <li>{{ playlist.name }}</li>
