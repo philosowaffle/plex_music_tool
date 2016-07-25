@@ -66,9 +66,6 @@ class DBPathForm(forms.Form):
     db_path = forms.CharField(label='Plex Database Path', max_length=500)
 
     # HELPERS
-    def __init__(self, *args, **kwargs):
-        super(DBPathForm,self).__init__(*args,**kwargs)
-
     def __str__(self):
         return 'Database Path: {}'.format(self.db_path)
 
@@ -77,9 +74,11 @@ class PlaylistForm(forms.Form):
     # FIELDS
     name = forms.CharField(label='Name', max_length=30)
     description = forms.CharField(label='Description', max_length=500)
-    query = forms.CharField(label='Query', max_length=500)
+    play_count_operator = forms.ChoiceField(label='Play Count', choices=[(1, "greater than"), (0, "equal to"), (-1, "less than")])
+    play_count = forms.IntegerField(label='', required=True)
 
     def __str__(self):
         return 'Playlist Name: {}' \
                 '\nPlaylist Description: {}' \
-                '\nPlaylist Query: {}'.format(self.db_path)
+                '\nPlay Count Operator: {}' \
+                '\nPlay Count: {}'.format(self.name, self.description, self.play_count_operator, self.play_count)

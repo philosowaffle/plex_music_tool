@@ -15,14 +15,31 @@
 <form action="{% url 'smartPlaylists:addPlaylist' %}" method="post">
 {% csrf_token %}
 {{ playlist_form }}
+<input type="submit" value="Test Query" />
 <input type="submit" value="Create Playlist" />
 </form>
 
-<ul>
-{% for playlist in playlists %}
-    <li>{{ playlist.name }}</li>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Query</th>
+        <th>Last Updated</th>
+    </tr>
+    {% for playlist in playlists %}
+    <tr>
+        <td>{{ playlist.name }}</td>
+        <td>{{ playlist.description }}</td>
+        <td>{{ playlist.query }}</td>
+        <td>{{ playlist.last_updated }}</td>
+        <td><button>Edit</button></td>
+        <td><button>Delete</button></td>
+    </tr>
 {% endfor %}
-</ul>
+</table>
+
+<br />
+<br />
 
 <b>Songs:</b>
 <ul>
