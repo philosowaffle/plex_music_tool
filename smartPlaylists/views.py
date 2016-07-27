@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.core.urlresolvers import reverse
 
-from .models import Settings, Playlist, Song, DBPathForm, PlaylistForm
+from .models import Settings, Playlist, Song, DBPathForm, PlaylistForm, QueryField, QueryOperator
 
 from datetime import datetime
 
@@ -14,17 +14,22 @@ def index(request):
 
     playlists = Playlist.objects.all()
     songs = Song.objects.all()
+    query_fields = QueryField.objects.all()
+    query_operators = QueryOperator.objects.all()
+    print query_operators
 
     # FORMS
     db_path_form = DBPathForm(initial={'db_path':plex_db_location})
-    playlist_form = PlaylistForm()
+    playlist_form = PlaylistForm(query_fields=query_fields, query_operators=query_operators)
 
     context = {
         'plex_db_location': plex_db_location,
         'playlists': playlists,
         'songs': songs,
         'db_path_form': db_path_form,
-        'playlist_form': playlist_form
+        'playlist_form': playlist_form,
+        'query_fields': query_fields,
+        'query_operators': query_operators
     }
 
     return render(request, 'smartPlaylists/index.html', context)
@@ -58,9 +63,23 @@ def addPlaylist(request):
     if form.is_valid():
         name = form.cleaned_data['name']
         description = form.cleaned_data['description']
-        query = form.cleaned_data['query']
+        query_field = form.cleaned_data['query_fields']
+        query_operator = form.cleaned_data['query_operators']
+        value = form.cleaned_data['value']
 
-        playlist = Playlist(name=name, description=description, query=query, last_updated=datetime.now())
+        playlist = Playlist(name=name, description=description, last_updated=datetime.now())
         playlist.save()
+
+        query_condition = null
+
+        if (query_field == "Play Count" or query_field == "Skip Count"):
+            query_condition = QueryCondition(playlist_id=playlist.id, order=0, field_type=query_field, operator_type=query_operator, query_value_int=value)
+        elif (query_field == "Last Played" or query_field == "Date Added"):
+            query_condition = QueryCondition(playlist_id=playlist.id, order=0, field_type=query_field, operator_type=query_operator, query_value_datetime=value)
+        else:
+            query_condition = QueryCondition(playlist_id=playlist.id, order=0, field_type=query_field, operator_type=query_operator, query_value_char=value)
+
+        if (query_condition != null):
+            query_condition.save()
 
     return HttpResponseRedirect(reverse('smartPlaylists:index'))
