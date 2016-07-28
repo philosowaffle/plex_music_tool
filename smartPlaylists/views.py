@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.core.urlresolvers import reverse
 
-from .models import Settings, Playlist, Song, DBPathForm, PlaylistForm, QueryField, QueryOperator
+from .models import Settings, Playlist, Song, DBPathForm, PlaylistForm, QueryField, QueryOperator, LastFmForm
 
 from datetime import datetime
 
@@ -16,11 +16,11 @@ def index(request):
     songs = Song.objects.all()
     query_fields = QueryField.objects.all()
     query_operators = QueryOperator.objects.all()
-    print query_operators
 
     # FORMS
     db_path_form = DBPathForm(initial={'db_path':plex_db_location})
     playlist_form = PlaylistForm(query_fields=query_fields, query_operators=query_operators)
+    lastfm_form = LastFmForm()
 
     context = {
         'plex_db_location': plex_db_location,
@@ -29,7 +29,8 @@ def index(request):
         'db_path_form': db_path_form,
         'playlist_form': playlist_form,
         'query_fields': query_fields,
-        'query_operators': query_operators
+        'query_operators': query_operators,
+        'lastfm_form': lastfm_form
     }
 
     return render(request, 'smartPlaylists/index.html', context)
@@ -81,5 +82,13 @@ def addPlaylist(request):
 
         if (query_condition != null):
             query_condition.save()
+
+    return HttpResponseRedirect(reverse('smartPlaylists:index'))
+
+def updateLastFmData():
+    form = LastFmForm(request.POST)
+
+    if form.is_valid():
+        syncAllData = form.cleaned_data['syncAllData']
 
     return HttpResponseRedirect(reverse('smartPlaylists:index'))

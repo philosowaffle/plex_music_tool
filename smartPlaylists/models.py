@@ -133,8 +133,8 @@ class PlaylistForm(forms.Form):
 
     # HELPERS
     def __init__(self,*args,**kwargs):
-        query_fields = kwargs.pop("query_fields")
-        query_operators = kwargs.pop("query_operators")
+        query_fields = kwargs.pop("query_fields", [])
+        query_operators = kwargs.pop("query_operators", [])
         super(PlaylistForm, self).__init__(*args,**kwargs)
         self.fields['query_fields'] = forms.ChoiceField(label='Field', choices=[(x.id, x.field_type) for x in query_fields])
         self.fields['query_operators'] = forms.ChoiceField(label='', choices=[(x.id, x.operator_type) for x in query_operators])
@@ -146,3 +146,12 @@ class PlaylistForm(forms.Form):
                 '\nValue: {}' \
                 '\nQuery Fields: {}' \
                 '\nQuery Operators: {}'.format(self.name, self.description, self.value, self.query_fields, self.query_operators)
+
+class LastFmForm(forms.Form):
+
+    # FIELDS
+    syncAllData = forms.BooleanField(label='Sync All Data')
+
+    # HELPERS
+    def __str__(self):
+        return 'Sync All Data: {}'.format(self.syncAllData)
