@@ -14,15 +14,25 @@ import os
 class Settings(models.Model):
 
     # FIELDS
-    plex_db_path = models.CharField(max_length=200)
+    plex_db_path = models.CharField(max_length=200, null=True)
+    lastfm_username = models.CharField(max_length=20, null=True)
+    lastfm_api_key = models.CharField(max_length=30, null=True)
 
     # METHODS
     def set_db_path(self, new_path):
         self.plex_db_path = new_path
 
+    def set_lastfm_username(self, new_lastfm_username):
+        self.lastfm_username = new_lastfm_username
+
+    def set_lastfm_api_key(self, new_lastfm_api_key):
+        self.lastfm_api_key = new_lastfm_api_key
+
     # HELPERS
     def __str__(self):
-        return 'DB Path: {}'.format(self.plex_db_path)
+        return 'DB Path: {}' \
+                '\nLastFm Username: {}' \
+                '\nLastFm Api Key: {}'.format(self.plex_db_path, self.lastfm_username, self.lastfm_api_key)
 
 @python_2_unicode_compatible
 class Playlist(models.Model):
@@ -116,14 +126,18 @@ class Song(models.Model):
             '\nPlay Count: {}' \
             '\nLast Updated: {}'.format(self.title, self.artist, self.last_played, self.play_count, self.last_updated)
 
-class DBPathForm(forms.Form):
+class SettingsForm(forms.Form):
 
     # FIELDS
     db_path = forms.CharField(label='Plex Database Path', max_length=500)
+    lastfm_username = forms.CharField(label='LastFm Username', max_length=20)
+    lastfm_api_key = forms.CharField(label='LastFm Api Key', max_length=30)
 
     # HELPERS
     def __str__(self):
-        return 'Database Path: {}'.format(self.db_path)
+        return 'Database Path: {}' \
+                '\nLastFm Username: {}' \
+                '\nLastFm Api Key: {}'.format(self.db_path, self.lastfm_username, self.lastfm_api_key)
 
 class PlaylistForm(forms.Form):
 

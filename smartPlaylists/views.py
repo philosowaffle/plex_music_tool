@@ -2,15 +2,20 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.core.urlresolvers import reverse
 
-from .models import Settings, Playlist, Song, DBPathForm, PlaylistForm, QueryField, QueryOperator, LastFmForm
+from .models import Settings, Playlist, Song, SettingsForm, PlaylistForm, QueryField, QueryOperator, LastFmForm
 
 from datetime import datetime
 
 # Create your views here.
 def index(request):
-    plex_db_location = list(Settings.objects.filter()[:1])
-    if plex_db_location:
-        plex_db_location = plex_db_location[0].plex_db_path
+    settings_row = list(Settings.objects.filter()[:1])
+    plex_db_location = None
+    lastfm_username = None
+    lastfm_api_key = None
+    if settings_row:
+        plex_db_location = settings_row[0].plex_db_path
+        lastfm_username = settings_row[0].lastfm_username
+        lastfm_api_key = settings_row[0].lastfm_api_key
 
     playlists = Playlist.objects.all()
     songs = Song.objects.all()
@@ -18,7 +23,7 @@ def index(request):
     query_operators = QueryOperator.objects.all()
 
     # FORMS
-    db_path_form = DBPathForm(initial={'db_path':plex_db_location})
+    settings_form = SettingsForm(initial={'db_path':plex_db_location, 'lastfm_username':lastfm_username, 'lastfm_api_key':lastfm_api_key})
     playlist_form = PlaylistForm(query_fields=query_fields, query_operators=query_operators)
     lastfm_form = LastFmForm()
 
@@ -26,7 +31,7 @@ def index(request):
         'plex_db_location': plex_db_location,
         'playlists': playlists,
         'songs': songs,
-        'db_path_form': db_path_form,
+        'settings_form': settings_form,
         'playlist_form': playlist_form,
         'query_fields': query_fields,
         'query_operators': query_operators,
@@ -35,22 +40,28 @@ def index(request):
 
     return render(request, 'smartPlaylists/index.html', context)
 
-def setDatabasePath(request):
+def setSettings(request):
     # create a form instance and populate it with data from the request:
-    form = DBPathForm(request.POST)
+    form = SettingsForm(request.POST)
 
     # check whether it's valid:
     if form.is_valid():
         settings = list(Settings.objects.filter()[:1])
 
         db_path = form.cleaned_data['db_path']
+        lastfm_username = form.cleaned_data['lastfm_username']
+        lastfm_api_key = form.cleaned_data['lastfm_api_key']
 
         if(settings):
             settings[0].set_db_path(db_path)
+            settings[0].set_lastfm_username(lastfm_username)
+            settings[0].set_lastfm_api_key(lastfm_api_key)
             settings[0].save()
         else:
             settings = Settings()
             settings.set_db_path(db_path)
+            settings.set_lastfm_username(lastfm_username)
+            settings.set_lastfm_api_key(lastfm_api_key)
             settings.save()
 
     # Always return an HttpResponseRedirect after successfully dealing

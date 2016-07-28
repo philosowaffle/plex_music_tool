@@ -5,7 +5,7 @@ from . import views
 app_name = 'smartPlaylists'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'setDatabasePath/$', views.setDatabasePath, name='setDatabasePath'),
+    url(r'setSettings/$', views.setSettings, name='setSettings'),
     url(r'addPlaylist/$', views.addPlaylist, name='addPlaylist'),
     url(r'updateLastFmData/$', views.updateLastFmData, name='updateLastFmData')
 ]

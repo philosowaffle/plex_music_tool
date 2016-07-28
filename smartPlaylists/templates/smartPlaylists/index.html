@@ -23,11 +23,12 @@
         {% endbuttons %}
     </form>
 
-    <form action="{% url 'smartPlaylists:setDatabasePath' %}" method="post">
+    <h3>Settings</h3>
+    <form action="{% url 'smartPlaylists:setSettings' %}" method="post">
         {% csrf_token %}
-        {% bootstrap_form db_path_form layout='inline' %}
+        {% bootstrap_form settings_form layout='inline' %}
         {% buttons %}
-                <button type="submit" class="btn btn-primary">Update Path</button>
+                <button type="submit" class="btn btn-primary">Update Settings</button>
         {% endbuttons %}
     </form>
 
