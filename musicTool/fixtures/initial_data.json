@@ -1,0 +1,97 @@
+[
+    {
+        "model": "musicTool.QueryOperator",
+        "pk": 1,
+        "fields": {
+            "operator_type": "<"
+        }
+    },
+
+    {
+        "model": "musicTool.QueryOperator",
+        "pk": 2,
+        "fields": {
+            "operator_type": "<="
+        }
+    },
+
+    {
+        "model": "musicTool.QueryOperator",
+        "pk": 3,
+        "fields": {
+            "operator_type": "="
+        }
+    },
+
+    {
+        "model": "musicTool.QueryOperator",
+        "pk": 4,
+        "fields": {
+            "operator_type": ">="
+        }
+    },
+
+    {
+        "model": "musicTool.QueryOperator",
+        "pk": 5,
+        "fields": {
+            "operator_type": ">"
+        }
+    },
+
+    {
+        "model": "musicTool.QueryCombiner",
+        "pk": 1,
+        "fields": {
+            "combiner_type": "And"
+        }
+    },
+
+    {
+        "model": "musicTool.QueryCombiner",
+        "pk": 2,
+        "fields": {
+            "combiner_type": "Or"
+        }
+    },
+
+    {
+        "model": "musicTool.QueryField",
+        "pk": 1,
+        "fields": {
+            "field_type": "Play Count"
+        }
+    },
+
+    {
+        "model": "musicTool.QueryField",
+        "pk": 2,
+        "fields": {
+            "field_type": "Skip Count"
+        }
+    },
+
+    {
+        "model": "musicTool.QueryField",
+        "pk": 3,
+        "fields": {
+            "field_type": "Last Played"
+        }
+    },
+
+    {
+        "model": "musicTool.QueryField",
+        "pk": 4,
+        "fields": {
+            "field_type": "Date Added"
+        }
+    },
+
+    {
+        "model": "musicTool.QueryField",
+        "pk": 5,
+        "fields": {
+            "field_type": "Genre"
+        }
+    }
+]
