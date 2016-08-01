@@ -1,6 +1,7 @@
+from django.core.management import call_command
+from django.core.urlresolvers import reverse
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
-from django.core.urlresolvers import reverse
 
 from .models import Settings, Playlist, Song, SettingsForm, PlaylistForm, QueryField, QueryOperator, LastFmForm
 
@@ -103,12 +104,27 @@ def addPlaylist(request):
 
     return HttpResponseRedirect(reverse('musicTool:index'))
 
-def updateLastFmData():
+def updateLastFmData(request):
     form = LastFmForm(request.POST)
 
     # https://stackoverflow.com/questions/15959936/how-can-i-run-my-python-script-from-within-a-web-browser-and-process-the-results
 
     if form.is_valid():
+
         sync_time_frame = form.cleaned_data['sync_time_frame']
+        settings_row = list(Settings.objects.filter()[:1])
+        plex_db_location = None
+        lastfm_username = None
+        lastfm_api_key = None
+
+        if settings_row:
+            plex_db_location = settings_row[0].plex_db_path
+            lastfm_username = settings_row[0].lastfm_username
+            lastfm_api_key = settings_row[0].lastfm_api_key
+        else:
+            logger.error("No settings found for user.")
+
+
+        call_command('updateLastFmStats', sync_time_frame, lastfm_username, lastfm_api_key, plex_db_location)
 
     return HttpResponseRedirect(reverse('musicTool:index'))

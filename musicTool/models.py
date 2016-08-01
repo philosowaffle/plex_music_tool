@@ -131,7 +131,7 @@ class SettingsForm(forms.Form):
     # FIELDS
     db_path = forms.CharField(label='Plex Database Path', max_length=500)
     lastfm_username = forms.CharField(label='LastFm Username', max_length=20)
-    lastfm_api_key = forms.CharField(label='LastFm Api Key', max_length=30)
+    lastfm_api_key = forms.CharField(label='LastFm Api Key', max_length=50)
 
     # HELPERS
     def __str__(self):
