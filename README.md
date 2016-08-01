@@ -1,6 +1,10 @@
 Plex Music Tool
 ============
 
+## Dependencies
+- python 2.7
+- Django
+
 ## Clear Database
 ```
 python manage.py flush

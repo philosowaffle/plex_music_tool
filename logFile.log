@@ -1,0 +1,204 @@
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+(0.000) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+(0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+(0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+(0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x10a2b3320>>, 'user': <SimpleLazyObject: <function <lambda> at 0x10a23f848>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x10a2b5190>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x10a236750>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+(0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+(0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+(0.000) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+(0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+(0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+(0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x10ae33320>>, 'user': <SimpleLazyObject: <function <lambda> at 0x10a9ae848>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x10ae34250>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x10a9a5810>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+(0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+(0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()
+(0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+(0.000) BEGIN; args=None
+(0.000) UPDATE "musicTool_settings" SET "plex_db_path" = '/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', "lastfm_username" = 'philosowaffle', "lastfm_api_key" = 'bed3ca7a1d12a644414ef950a0f2f6' WHERE "musicTool_settings"."id" = 1; args=(u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', u'philosowaffle', u'bed3ca7a1d12a644414ef950a0f2f6', 1)
+(0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+(0.000) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+(0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+(0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+(0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x10ae7a0c8>>, 'user': <SimpleLazyObject: <function <lambda> at 0x10ae7a140>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x10a9ea050>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x10a9ea290>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+(0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+(0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+(0.000) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+(0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+(0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+(0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x10b874320>>, 'user': <SimpleLazyObject: <function <lambda> at 0x10b800848>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x10b875250>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x10b3f5810>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+(0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+(0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.011) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2016-07-31 14:26:34,538 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2016-07-31 14:26:34,540 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2016-07-31 14:26:38,290 utils (0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+DEBUG 2016-07-31 14:26:38,334 utils (0.000) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+DEBUG 2016-07-31 14:26:38,334 utils (0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+DEBUG 2016-07-31 14:26:38,457 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+DEBUG 2016-07-31 14:26:38,458 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+DEBUG 2016-07-31 14:26:38,454 base Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x103e18320>>, 'user': <SimpleLazyObject: <function <lambda> at 0x103984848>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x103e14810>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x103974dd0>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+DEBUG 2016-07-31 14:26:38,484 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+DEBUG 2016-07-31 14:26:38,485 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()
+DEBUG 2016-07-31 14:29:53,572 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2016-07-31 14:29:53,592 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2016-07-31 14:29:56,917 utils (0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+DEBUG 2016-07-31 14:29:56,949 utils (0.000) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+DEBUG 2016-07-31 14:29:56,950 utils (0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+DEBUG 2016-07-31 14:29:57,017 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+DEBUG 2016-07-31 14:29:57,018 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+DEBUG 2016-07-31 14:29:57,014 base Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x10a3ab320>>, 'user': <SimpleLazyObject: <function <lambda> at 0x10a33a848>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x10a3a7810>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x10a32ce10>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+DEBUG 2016-07-31 14:29:57,046 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+DEBUG 2016-07-31 14:29:57,047 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()
+DEBUG 2016-07-31 14:32:02,485 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2016-07-31 14:32:02,506 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2016-07-31 14:32:05,396 utils (0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+DEBUG 2016-07-31 14:32:05,441 utils (0.000) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+DEBUG 2016-07-31 14:32:05,441 utils (0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+DEBUG 2016-07-31 14:32:05,497 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+DEBUG 2016-07-31 14:32:05,498 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+DEBUG 2016-07-31 14:32:05,495 base Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x109f73398>>, 'user': <SimpleLazyObject: <function <lambda> at 0x109f038c0>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x109f70810>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x109ef7dd0>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+DEBUG 2016-07-31 14:32:05,526 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+DEBUG 2016-07-31 14:32:05,527 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()
+DEBUG 2016-07-31 14:35:28,624 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2016-07-31 14:35:28,644 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2016-07-31 14:35:44,203 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2016-07-31 14:35:44,206 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2016-07-31 14:36:31,201 utils (0.003) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2016-07-31 14:36:31,203 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2016-07-31 14:36:34,937 utils (0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+DEBUG 2016-07-31 14:36:34,972 utils (0.002) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+DEBUG 2016-07-31 14:36:34,972 utils (0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+DEBUG 2016-07-31 14:36:35,060 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+DEBUG 2016-07-31 14:36:35,061 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+DEBUG 2016-07-31 14:36:35,057 base Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x102fa2398>>, 'user': <SimpleLazyObject: <function <lambda> at 0x102f318c0>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x102f9f810>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x102f23dd0>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+DEBUG 2016-07-31 14:36:35,099 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+DEBUG 2016-07-31 14:36:35,100 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()
+DEBUG 2016-08-01 01:16:27,631 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2016-08-01 01:16:27,652 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+CRITICAL 2016-08-01 01:16:42,264 views This is a test
+DEBUG 2016-08-01 01:16:42,267 utils (0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+DEBUG 2016-08-01 01:16:42,310 utils (0.000) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+DEBUG 2016-08-01 01:16:42,310 utils (0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+DEBUG 2016-08-01 01:16:42,422 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+DEBUG 2016-08-01 01:16:42,423 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+DEBUG 2016-08-01 01:16:42,419 base Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x10f495398>>, 'user': <SimpleLazyObject: <function <lambda> at 0x10f4448c0>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x10f492810>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x10f436dd0>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+DEBUG 2016-08-01 01:16:42,461 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+DEBUG 2016-08-01 01:16:42,461 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()
+CRITICAL 2016-08-01 01:16:44,556 views This is a test
+DEBUG 2016-08-01 01:16:44,558 utils (0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+DEBUG 2016-08-01 01:16:44,559 utils (0.000) BEGIN; args=None
+DEBUG 2016-08-01 01:16:44,583 utils (0.024) UPDATE "musicTool_settings" SET "plex_db_path" = '/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', "lastfm_username" = 'philosowaffle', "lastfm_api_key" = 'bed3ca7a1d12a644414ef950a0f2f6' WHERE "musicTool_settings"."id" = 1; args=(u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', u'philosowaffle', u'bed3ca7a1d12a644414ef950a0f2f6', 1)
+CRITICAL 2016-08-01 01:16:44,605 views This is a test
+DEBUG 2016-08-01 01:16:44,607 utils (0.001) SELECT "musicTool_settings"."id", "musicTool_settings"."plex_db_path", "musicTool_settings"."lastfm_username", "musicTool_settings"."lastfm_api_key" FROM "musicTool_settings" LIMIT 1; args=()
+DEBUG 2016-08-01 01:16:44,608 utils (0.000) SELECT "musicTool_queryfield"."id", "musicTool_queryfield"."field_type" FROM "musicTool_queryfield"; args=()
+DEBUG 2016-08-01 01:16:44,609 utils (0.000) SELECT "musicTool_queryoperator"."id", "musicTool_queryoperator"."operator_type" FROM "musicTool_queryoperator"; args=()
+DEBUG 2016-08-01 01:16:44,614 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist" LIMIT 21; args=()
+DEBUG 2016-08-01 01:16:44,615 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song" LIMIT 21; args=()
+DEBUG 2016-08-01 01:16:44,614 base Exception while resolving variable 'error_message' in template 'musicTool/index.html'.
+Traceback (most recent call last):
+  File "/Library/Python/2.7/site-packages/django/template/base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_message] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x10f4e31b8>>, 'user': <SimpleLazyObject: <function <lambda> at 0x10f4e32a8>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x10f47c4d0>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x10f488990>, u'request': <WSGIRequest: GET '/musicTool/'>}, {}, {'plex_db_location': u'/Users/philosowaffle/Desktop/com.plexapp.plugins.library.db', 'playlists': [], 'settings_form': <SettingsForm bound=False, valid=Unknown, fields=(db_path;lastfm_username;lastfm_api_key)>, 'query_fields': [], 'query_operators': [], 'playlist_form': <PlaylistForm bound=False, valid=Unknown, fields=(name;description;query_fields;query_operators;value)>, 'lastfm_form': <LastFmForm bound=False, valid=Unknown, fields=(sync_time_frame)>, 'songs': []}]"
+DEBUG 2016-08-01 01:16:44,623 utils (0.000) SELECT "musicTool_playlist"."id", "musicTool_playlist"."name", "musicTool_playlist"."description", "musicTool_playlist"."last_updated" FROM "musicTool_playlist"; args=()
+DEBUG 2016-08-01 01:16:44,623 utils (0.000) SELECT "musicTool_song"."id", "musicTool_song"."title", "musicTool_song"."artist", "musicTool_song"."last_played", "musicTool_song"."play_count", "musicTool_song"."last_updated" FROM "musicTool_song"; args=()

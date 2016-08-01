@@ -6,6 +6,10 @@ from .models import Settings, Playlist, Song, SettingsForm, PlaylistForm, QueryF
 
 from datetime import datetime
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 def index(request):
     settings_row = list(Settings.objects.filter()[:1])
@@ -16,6 +20,8 @@ def index(request):
         plex_db_location = settings_row[0].plex_db_path
         lastfm_username = settings_row[0].lastfm_username
         lastfm_api_key = settings_row[0].lastfm_api_key
+    else:
+        logger.warn("No settings found for user.")
 
     playlists = Playlist.objects.all()
     songs = Song.objects.all()
@@ -41,6 +47,7 @@ def index(request):
     return render(request, 'musicTool/index.html', context)
 
 def setSettings(request):
+    logger.critical('This is a test')
     # create a form instance and populate it with data from the request:
     form = SettingsForm(request.POST)
 
