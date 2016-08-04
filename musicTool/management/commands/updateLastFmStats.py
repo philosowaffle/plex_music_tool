@@ -1,39 +1,21 @@
 from django.core.management.base import BaseCommand, CommandError
 from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
 import logging
 import requests
 import collections
 import time
+import sqlite3
 
 logger = logging.getLogger(__name__)
 
 lastfm_api_url = 'https://ws.audioscrobbler.com/2.0/?method=user.getweeklytrackchart&user={}&from={}&to={}&api_key={}&format=json'
 epoch = datetime.utcfromtimestamp(0)
 
-query_builder = "UPDATE metadata_item_settings SET view_count={} WHERE guid IN (SELECT guid FROM metadata_items WHERE metadata_type = 10 AND UPPER(\'title\') = UPPER({}); "
-
-def flatten(d, parent_key=''):
-    """From http://stackoverflow.com/a/6027615/254187. Modified to strip # symbols from dict keys."""
-    items = []
-    for k, v in d.items():
-        new_key = parent_key + '_' + k if parent_key else k
-        if isinstance(v, collections.MutableMapping):
-            items.extend(flatten(v, new_key).items())
-        else:
-            new_key = new_key.replace('#', '')  # Strip pound symbols from column names
-            items.append((new_key, v))
-    return dict(items)
-
-def process_track(track):
-    """Removes `image` keys from track data. Replaces empty strings for values with None."""
-    if 'image' in track:
-        del track['image']
-    flattened = flatten(track)
-    for key, val in flattened.iteritems():
-        if val == '':
-            flattened[key] = None
-    return flattened
+initialize_query_builder = "UPDATE metadata_item_settings SET view_count={} WHERE guid IN (SELECT guid FROM metadata_items WHERE metadata_type = 10 AND UPPER(title) = UPPER({})); "
+update_query_builder = "UPDATE metadata_item_settings SET view_count=view_count + {} WHERE guid IN (SELECT guid FROM metadata_items WHERE metadata_type = 10 AND UPPER(title) = UPPER({})); "
+check_changes_query = "SELECT changes();"
 
 class Command(BaseCommand):
     help = 'Gets play count and last played data from LastFm and updates Plex music stats.'
@@ -62,14 +44,21 @@ class Command(BaseCommand):
             raise CommandError('Must provide Plex Database path.')
 
         to_time = time.time()
-        from_time = None;
-        logger.debug(time_frame)
+        from_time = None
+        query_builder = ""
+
         if time_frame == 'day':
             from_time = datetime.now() - timedelta(days=1)
             from_time = (from_time - epoch).total_seconds()
-            logger.debug(from_time)
-            logger.debug(to_time)
+            query_builder = update_query_builder
+        elif time_frame  == 'all':
+            from_time = datetime.now() - relativedelta(years=20)
+            from_time = (from_time - epoch).total_seconds()
+            query_builder = initialize_query_builder
 
+        # TODO: add support for other timeframes
+
+        logger.debug("Querying LastFm for user {} over timeframe {} using API Key {} and will insert into database {}".format(username, time_frame, api_key, db_path))
         lastfm_data = requests.get(lastfm_api_url.format(username, from_time, to_time, api_key)).json()
         lastfm_data = lastfm_data['weeklytrackchart']['track']
 
@@ -77,19 +66,46 @@ class Command(BaseCommand):
 
         for item in enumerate(lastfm_data):
             try:
-
                 song = item[1]
                 song_name = song['name']
-                song_name = song_name.replace('\"','\"\"')
+                song_name = self.clean_song_name(song_name)
                 song_artist = song['artist']['#text']
                 song_playcount = song['playcount']
 
                 query = query + query_builder.format(song_playcount, song_name)
-            except:
+            except Exception as e:
                 # TODO: Deal with songs that send unicode exception
-                logger.error("Failed to update data for: {}".format(item))
+                self.log_error("Failed to update data for: {}".format(item), e)
                 pass
-        logger.debug(query)
+
+        try:
+            logger.debug(query)
+            conn = sqlite3.connect(db_path)
+            conn.executescript(query)
+            conn.commit()
+        except Exception as e:
+            if conn:
+                conn.rollback()
+            self.log_error("Failed to query the database.", e)
+            pass
+
+    def clean_song_name(self, song_name):
+        # Escape "
+        song_name = song_name.replace('\"','\"\"')
+
+        # Escape '
+        song_name = song_name.replace('\'', "''")
+
+        # Add surrounding quotes
+        song_name = "'" + song_name + "'"
+
+        return song_name
+
+    def log_error(self, msg, e):
+        logger.error(msg + "\n" \
+                     + str(type(e)) + "\n" \
+                     + str(e.args) + "\n" \
+                     + str(e))
 
 
 
