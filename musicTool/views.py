@@ -3,22 +3,30 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
 
-from .models import Settings, Playlist, Song, SettingsForm, PlaylistForm, QueryField, QueryOperator, LastFmForm
+from .models import Settings, Playlist, Song, SettingsForm, PlaylistForm, QueryField, QueryOperator, Async, Task
+import async_runner as async_runner
 
 from datetime import datetime
 
 import logging
+import signal
 
 logger = logging.getLogger(__name__)
 
 # Create your views here.
 def index(request):
+
+    pending_tasks = Task.objects.count()
+    async_runner = Async.objects.count()
+    logger.debug("Pending Tasks: {} Async Runners: {}".format(pending_tasks, async_runner))
+
     settings_row = list(Settings.objects.filter()[:1])
     plex_db_location = None
     lastfm_username = None
     lastfm_api_key = None
     if settings_row:
         plex_db_location = settings_row[0].plex_db_path
+        plex_username = settings_row[0].plex_username
         lastfm_username = settings_row[0].lastfm_username
         lastfm_api_key = settings_row[0].lastfm_api_key
     else:
@@ -30,9 +38,8 @@ def index(request):
     query_operators = QueryOperator.objects.all()
 
     # FORMS
-    settings_form = SettingsForm(initial={'db_path':plex_db_location, 'lastfm_username':lastfm_username, 'lastfm_api_key':lastfm_api_key})
+    settings_form = SettingsForm(initial={'db_path':plex_db_location, 'plex_username':plex_username, 'lastfm_username':lastfm_username, 'lastfm_api_key':lastfm_api_key})
     playlist_form = PlaylistForm(query_fields=query_fields, query_operators=query_operators)
-    lastfm_form = LastFmForm()
 
     context = {
         'plex_db_location': plex_db_location,
@@ -41,14 +48,12 @@ def index(request):
         'settings_form': settings_form,
         'playlist_form': playlist_form,
         'query_fields': query_fields,
-        'query_operators': query_operators,
-        'lastfm_form': lastfm_form
+        'query_operators': query_operators
     }
 
     return render(request, 'musicTool/index.html', context)
 
 def setSettings(request):
-    logger.critical('This is a test')
     # create a form instance and populate it with data from the request:
     form = SettingsForm(request.POST)
 
@@ -57,16 +62,19 @@ def setSettings(request):
         settings = list(Settings.objects.filter()[:1])
 
         db_path = form.cleaned_data['db_path']
+        plex_username = form.cleaned_data['plex_username']
         lastfm_username = form.cleaned_data['lastfm_username']
         lastfm_api_key = form.cleaned_data['lastfm_api_key']
 
         if(settings):
             settings[0].set_db_path(db_path)
+            settings[0].set_plex_username(plex_username)
             settings[0].set_lastfm_username(lastfm_username)
             settings[0].set_lastfm_api_key(lastfm_api_key)
             settings[0].save()
         else:
             settings = Settings()
+            settings.set_plex_username(plex_username)
             settings.set_db_path(db_path)
             settings.set_lastfm_username(lastfm_username)
             settings.set_lastfm_api_key(lastfm_api_key)
@@ -105,26 +113,29 @@ def addPlaylist(request):
     return HttpResponseRedirect(reverse('musicTool:index'))
 
 def updateLastFmData(request):
-    form = LastFmForm(request.POST)
 
     # https://stackoverflow.com/questions/15959936/how-can-i-run-my-python-script-from-within-a-web-browser-and-process-the-results
 
-    if form.is_valid():
+    # TODO: get an error here saying signal only works in main thread
+    # need to figure out how to make sure we kill this when the program is killed
+    # Shutdown async task runner on CTRL-C event
+    # signal.signal(signal.SIGINT, async_runner.stop())
 
-        sync_time_frame = form.cleaned_data['sync_time_frame']
-        settings_row = list(Settings.objects.filter()[:1])
-        plex_db_location = None
-        lastfm_username = None
-        lastfm_api_key = None
+    settings_row = list(Settings.objects.filter()[:1])
+    plex_db_location = None
+    lastfm_username = None
+    lastfm_api_key = None
+    plex_username = None
 
-        if settings_row:
-            plex_db_location = settings_row[0].plex_db_path
-            lastfm_username = settings_row[0].lastfm_username
-            lastfm_api_key = settings_row[0].lastfm_api_key
-        else:
-            logger.error("No settings found for user.")
+    if settings_row:
+        plex_db_location = settings_row[0].plex_db_path
+        lastfm_username = settings_row[0].lastfm_username
+        lastfm_api_key = settings_row[0].lastfm_api_key
+        plex_username = settings_row[0].plex_username
+    else:
+        logger.error("No settings found for user.")
 
-
-        call_command('updateLastFmStats', sync_time_frame, lastfm_username, lastfm_api_key, plex_db_location)
+    logger.debug("Starting thread for last fm update.")
+    call_command('updateLastFmStats', lastfm_username, lastfm_api_key, plex_db_location, plex_username)
 
     return HttpResponseRedirect(reverse('musicTool:index'))

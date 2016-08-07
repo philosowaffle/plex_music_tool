@@ -15,6 +15,7 @@ class Settings(models.Model):
 
     # FIELDS
     plex_db_path = models.CharField(max_length=200, null=True)
+    plex_username = models.CharField(max_length=20, null=True)
     lastfm_username = models.CharField(max_length=20, null=True)
     lastfm_api_key = models.CharField(max_length=30, null=True)
 
@@ -28,11 +29,15 @@ class Settings(models.Model):
     def set_lastfm_api_key(self, new_lastfm_api_key):
         self.lastfm_api_key = new_lastfm_api_key
 
+    def set_plex_username(self, new_plex_username):
+        self.plex_username = new_plex_username
+
     # HELPERS
     def __str__(self):
         return 'DB Path: {}' \
+                '\nPlex Username: {}' \
                 '\nLastFm Username: {}' \
-                '\nLastFm Api Key: {}'.format(self.plex_db_path, self.lastfm_username, self.lastfm_api_key)
+                '\nLastFm Api Key: {}'.format(self.plex_db_path, self.plex_username, self.lastfm_username, self.lastfm_api_key)
 
 @python_2_unicode_compatible
 class Playlist(models.Model):
@@ -126,18 +131,44 @@ class Song(models.Model):
             '\nPlay Count: {}' \
             '\nLast Updated: {}'.format(self.title, self.artist, self.last_played, self.play_count, self.last_updated)
 
+@python_2_unicode_compatible
+class Async(models.Model):
+
+    # FIELDS
+    asyncExists = models.BooleanField(default=True)
+
+    def __str__(self):
+        return 'AsyncExists: {}'.format(asyncExists)
+
+@python_2_unicode_compatible
+class Task(models.Model):
+
+    # FIELDS
+    script = models.TextField()
+    executed = models.BooleanField(default=False)
+    date_created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return 'Script: {}' \
+                '\nExecuted: {}' \
+                '\nDate Created: {}' \
+                '\nLast Modified: {}'.format(script, executed, date_created, last_modified)
+
 class SettingsForm(forms.Form):
 
     # FIELDS
     db_path = forms.CharField(label='Plex Database Path', max_length=500)
+    plex_username = forms.CharField(label='Plex Username', max_length=20)
     lastfm_username = forms.CharField(label='LastFm Username', max_length=20)
     lastfm_api_key = forms.CharField(label='LastFm Api Key', max_length=50)
 
     # HELPERS
     def __str__(self):
         return 'Database Path: {}' \
+                '\nPlex Username: {}' \
                 '\nLastFm Username: {}' \
-                '\nLastFm Api Key: {}'.format(self.db_path, self.lastfm_username, self.lastfm_api_key)
+                '\nLastFm Api Key: {}'.format(self.db_path, self.plex_username, self.lastfm_username, self.lastfm_api_key)
 
 class PlaylistForm(forms.Form):
 
@@ -160,12 +191,3 @@ class PlaylistForm(forms.Form):
                 '\nValue: {}' \
                 '\nQuery Fields: {}' \
                 '\nQuery Operators: {}'.format(self.name, self.description, self.value, self.query_fields, self.query_operators)
-
-class LastFmForm(forms.Form):
-
-    # FIELDS
-    sync_time_frame = forms.ChoiceField(label='', choices=[('day', 'Day'), ('week', 'Week'), ('month', 'Month'), ('all', 'All Data')])
-
-    # HELPERS
-    def __str__(self):
-        return 'Sync Time Frame: {}'.format(self.sync_time_frame)

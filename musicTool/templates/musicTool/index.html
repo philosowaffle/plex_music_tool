@@ -17,7 +17,6 @@
 
     <form action="{% url 'musicTool:updateLastFmData' %}" method="post">
         {% csrf_token %}
-        {% bootstrap_form lastfm_form %}
         {% buttons %}
                 <button type="submit" class="btn btn-danger">Sync LastFm Scrobbles</button>
         {% endbuttons %}
