@@ -24,6 +24,7 @@ def index(request):
     plex_db_location = None
     lastfm_username = None
     lastfm_api_key = None
+    plex_username = None
     if settings_row:
         plex_db_location = settings_row[0].plex_db_path
         plex_username = settings_row[0].plex_username
