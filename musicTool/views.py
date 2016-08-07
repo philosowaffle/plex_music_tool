@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.template import loader
@@ -133,10 +135,16 @@ def updateLastFmData(request):
         lastfm_username = settings_row[0].lastfm_username
         lastfm_api_key = settings_row[0].lastfm_api_key
         plex_username = settings_row[0].plex_username
+
+        try:
+            call_command('updateLastFmStats', lastfm_username, lastfm_api_key, plex_db_location, plex_username)
+            messages.add_message(request, messages.INFO, 'LastFm sync in progress.')
+        except Exception as e:
+            logger.error("Failed to sync LastFm. " + str(e))
+            messages.add_message(request, messages.ERROR, str(e))
     else:
         logger.error("No settings found for user.")
+        messages.add_message(request, messages.ERROR, 'No settings found for user.')
 
-    logger.debug("Starting thread for last fm update.")
-    call_command('updateLastFmStats', lastfm_username, lastfm_api_key, plex_db_location, plex_username)
 
     return HttpResponseRedirect(reverse('musicTool:index'))
