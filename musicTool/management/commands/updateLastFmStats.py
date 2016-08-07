@@ -48,8 +48,9 @@ def update_lastfm(options):
     plex_username = options['plex_username']
 
     # TODO: Remove
-    Task.objects.all().delete()
-    Async.objects.all().delete()
+    # For testing when you might not wait for a task to complete
+    # Task.objects.all().delete()
+    # Async.objects.all().delete()
 
 
 
