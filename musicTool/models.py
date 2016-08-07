@@ -155,6 +155,8 @@ class Task(models.Model):
                 '\nDate Created: {}' \
                 '\nLast Modified: {}'.format(script, executed, date_created, last_modified)
 
+# class AsyncError(models.Model)
+
 class SettingsForm(forms.Form):
 
     # FIELDS

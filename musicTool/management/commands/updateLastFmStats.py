@@ -46,43 +46,32 @@ def update_lastfm(options):
     api_key = options['api_key']
     db_path = options['db_path']
     plex_username = options['plex_username']
+    plex_user_id = options['plex_user_id']
 
     # TODO: Remove
     # For testing when you might not wait for a task to complete
     # Task.objects.all().delete()
     # Async.objects.all().delete()
 
-
-
     if username is None:
+        logger.error('Must provide LastFm username.')
         raise CommandError('Must provide LastFm username.')
     if api_key is None:
+        logger.error('Must provide API Key.')
         raise CommandError('Must provide API Key.')
     if db_path is None:
+        logger.error('Must provide Plex Database path.')
         raise CommandError('Must provide Plex Database path.')
     if plex_username is None:
+        logger.error('Must provide Plex Username.')
         raise CommandError('Must provide Plex Username.')
+    if plex_user_id is None:
+        logger.error('Failed to find Plex User Id.')
+        raise CommandError('Failed to find Plex User Id.')
 
     conn = None
     cursor = None
     plex_user_id = None
-
-    try:
-        conn = sqlite3.connect(db_path)
-        conn.row_factory = sqlite3.Row
-        cursor = conn.cursor()
-        cursor.execute("SELECT id FROM accounts WHERE accounts.name='{}'".format(plex_username))
-        plex_user_id = cursor.fetchone()["id"]
-    except OperationalException as e:
-        if cursor:
-            cursor.close()
-        self.log_error("Failed to find plex user with username: {}".format(plex_username), e)
-        return
-    except Exception as e:
-        if cursor:
-            cursor.close()
-        self.log_error("Failed to find plex user with username: {}".format(plex_username), e)
-        raise e
 
     to_time = time.time()
     query = ""
@@ -197,5 +186,30 @@ class Command(BaseCommand):
         parser.add_argument('plex_username')
 
     def handle(self, *args, **options):
+        db_path = options['db_path']
+        plex_username = options['plex_username']
+
+        if db_path is None:
+            raise CommandError('Must provide Plex Database path.')
+        if plex_username is None:
+            raise CommandError('Must provide Plex Username.')
+
+        cursor = None
+
+        try:
+            conn = sqlite3.connect(db_path)
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("SELECT id FROM accounts WHERE accounts.name='{}'".format(plex_username))
+            plex_user_id = cursor.fetchone()["id"]
+            options['plex_username'] = plex_user_id
+        except Exception as e:
+            if cursor:
+                cursor.close()
+            log_error("Failed to find plex user with username: {}".format(plex_username), e)
+            raise CommandError("Failed to find plex user with username: {}".format(plex_username))
+
+        if cursor:
+            cursor.close()
 
         thread.start_new_thread(update_lastfm, (options, ))
