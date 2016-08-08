@@ -43,11 +43,11 @@ python manage.py runserver
 ## Usage
 
 ### Settings
-**Plex Database Path: ** The path to your Plex database file.  Normally this is found in `C:\Users\Username\AppData\Local\Plex Media Server\Plug-in Support\Databases\com.plexapp.plugins.library.db`.  Provide the full path including the file name.  It is recommended you make a backup copy of the database file before performing any action.
-**Plex Username: ** Your Plex username, note that if you are the owner of the library then your username will be 'Administrator'.
-**LastFm Username: ** Your LastFm username.
-**LastFm Api Key: ** Your LastFm API key.  You can get one here: http://www.last.fm/api
-**Update Settings: ** Updates your settings in for the Plex Music Tool.  Currently only supports one user at a time, changing the user name will overwrite the existing users settings.
+* Plex Database Path: The path to your Plex database file.  Normally this is found in `C:\Users\Username\AppData\Local\Plex Media Server\Plug-in Support\Databases\com.plexapp.plugins.library.db`.  Provide the full path including the file name.  It is recommended you make a backup copy of the database file before performing any action.
+* Plex Username:  Your Plex username, note that if you are the owner of the library then your username will be 'Administrator'.
+* LastFm Username:  Your LastFm username.
+* LastFm Api Key:  Your LastFm API key.  You can get one here: http://www.last.fm/api
+* Update Settings:  Updates your settings in for the Plex Music Tool.  Currently only supports one user at a time, changing the user name will overwrite the existing users settings.
 
 ### Sync LastFm Scrobbles
 This will query LastFm for your entire track play count history.  It will then kick off a background process that will update your Plex Database metadata for any matching tracks.  This process may take some time and will temporarily lock the database so ensure you have no active users and do not click the button multiple times as this will just trigger a new job.  The sync will overwrite any existing play count information in the database.
