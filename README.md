@@ -8,7 +8,6 @@ A tool for enhancing the Plex Music Database.
 
 ## Dependencies
 - python 2.7
-- Django
 
 ## Clear Database
 ```
@@ -25,21 +24,16 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-
-## Requirements
-1. Python 2.7
-2. Pip
-3. Django
-4. pip install django-bootstrap3
-5. pip install python-dateutil
-
 ## Windows Install steps
 
 ** Warning: Make a backup of your Plex database before performing any actions with the Plex Music Tool **
 
 1. Python 2.7
 2. Pip https://pip.pypa.io/en/latest/installing/
-3. Install the Requirements
+3. Open a command prompt in the project directory
+4. `virtualenv venv`
+5. `venv\Scripts\activate` (run deactivate to end)
+3. pip install -r requirements.txt
 4. py manage.py makemigrations
 5. py manage.py migrate
 6. py manage.py runserver

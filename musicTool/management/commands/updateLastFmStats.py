@@ -32,7 +32,7 @@ except Exception as e:
     if cursor:
         conn.rollback()
         cursor.close()
-        self.log_error("Failed to run query against the database: " + query, e)
+    logger.error("Failed to run query against the database: " + query + " " + str(e))
     raise e
 
 if cursor:
@@ -71,7 +71,10 @@ def update_lastfm(options):
 
     conn = None
     cursor = None
-    plex_user_id = None
+
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
 
     to_time = time.time()
     query = ""
@@ -90,36 +93,45 @@ def update_lastfm(options):
     # for performance will build Tasks with a set of 100 queries
     set_counter = 0
     set_max = 500
+    lastfm_counter = 0
+    plex_counter = 0
 
     for item in enumerate(lastfm_data):
         try:
+            lastfm_counter = lastfm_counter + 1
             song = item[1]
             song_name = song['name']
             song_name = clean_song_name(song_name)
             song_artist = song['artist']['#text']
+            song_artist = clean_song_name(song_artist)
             song_playcount = song['playcount']
 
-            single_query = """\"\"\"
-                                UPDATE metadata_item_settings SET view_count={0} WHERE guid IN (SELECT guid FROM metadata_items WHERE metadata_type = 10 AND account_id = {2} AND UPPER(title) = UPPER({1}));
+            cursor.execute("SELECT guid FROM metadata_items WHERE metadata_type = 10 AND UPPER(title) = UPPER({0})".format(song_name))
+            result = cursor.fetchall()
 
-                                INSERT INTO metadata_item_settings (guid, account_id, view_count)  SELECT guid, {2}, {0} FROM metadata_items WHERE metadata_type = 10 AND UPPER(title) = UPPER({1}) AND changes() = 0;
+            if len(result) > 0:
+                plex_counter = plex_counter + 1
+                single_query = """\"\"\"
+                                    UPDATE metadata_item_settings SET view_count={0} WHERE guid IN (SELECT guid FROM metadata_items WHERE metadata_type = 10 AND UPPER(title) = UPPER({1})) AND account_id = {2};
 
-                            \"\"\"
-                        """.format(song_playcount, song_name, plex_user_id)
-
-            if set_counter is 0:
-                query = single_query
-                set_counter = set_counter + 1
-            elif set_counter < set_max:
-                query = query + "\n\n" + single_query
-                set_counter = set_counter + 1
+                                    INSERT INTO metadata_item_settings (guid, account_id, view_count)  SELECT guid, {2}, {0} FROM metadata_items WHERE metadata_type = 10 AND UPPER(title) = UPPER({1}) AND changes() = 0;
+                                \"\"\"""".format(song_playcount, song_name, plex_user_id, song_artist)
+                
+                if set_counter is 0:
+                    query = single_query
+                    set_counter = set_counter + 1
+                elif set_counter < set_max:
+                    query = query + "\n\n" + single_query
+                    set_counter = set_counter + 1
+                else:
+                    query = query + "\n\n" + single_query
+                    task = Task()
+                    task.script = script.format(db_path, query)
+                    task.save()
+                    set_counter = 0
+                    start_runner = True
             else:
-                query = query + "\n\n" + single_query
-                task = Task()
-                task.script = script.format(db_path, query)
-                task.save()
-                set_counter = 0
-                start_runner = True
+                logger.debug("Skipping {} by {}, not found in Plex DB.".format(song_name, song_artist))
 
         except Exception as e:
             log_error("Failed to update data for: {}".format(item), e)
@@ -135,6 +147,7 @@ def update_lastfm(options):
     # Start async runner
     if start_runner:
         logger.debug("Starting async runner.")
+        logger.info("Syncing {} songs out of {}".format(plex_counter, lastfm_counter))
         async_runner.start()
 
     if cursor:
@@ -202,7 +215,7 @@ class Command(BaseCommand):
             cursor = conn.cursor()
             cursor.execute("SELECT id FROM accounts WHERE accounts.name='{}'".format(plex_username))
             plex_user_id = cursor.fetchone()["id"]
-            options['plex_username'] = plex_user_id
+            options['plex_user_id'] = plex_user_id
         except Exception as e:
             if cursor:
                 cursor.close()
