@@ -7,6 +7,7 @@ from django.template import loader
 
 from .models import Settings, Playlist, Song, SettingsForm, PlaylistForm, QueryField, QueryOperator, Async, Task
 import async_runner as async_runner
+import pygn as pygn
 
 from datetime import datetime
 
@@ -27,11 +28,15 @@ def index(request):
     lastfm_username = None
     lastfm_api_key = None
     plex_username = None
+    gracenote_client_id = None
+    gracenote_user_id = None
     if settings_row:
         plex_db_location = settings_row[0].plex_db_path
         plex_username = settings_row[0].plex_username
         lastfm_username = settings_row[0].lastfm_username
         lastfm_api_key = settings_row[0].lastfm_api_key
+        gracenote_client_id = settings_row[0].gracenote_client_id
+        gracenote_user_id = settings_row[0].gracenote_user_id
     else:
         logger.warn("No settings found for user.")
 
@@ -41,7 +46,13 @@ def index(request):
     query_operators = QueryOperator.objects.all()
 
     # FORMS
-    settings_form = SettingsForm(initial={'db_path':plex_db_location, 'plex_username':plex_username, 'lastfm_username':lastfm_username, 'lastfm_api_key':lastfm_api_key})
+    settings_form = SettingsForm(initial={
+                                 'db_path':plex_db_location,
+                                 'plex_username':plex_username,
+                                 'lastfm_username':lastfm_username,
+                                 'lastfm_api_key':lastfm_api_key,
+                                 'gracenote_client_id':gracenote_client_id,
+                                 'gracenote_user_id':gracenote_user_id})
     playlist_form = PlaylistForm(query_fields=query_fields, query_operators=query_operators)
 
     context = {
@@ -68,19 +79,44 @@ def setSettings(request):
         plex_username = form.cleaned_data['plex_username']
         lastfm_username = form.cleaned_data['lastfm_username']
         lastfm_api_key = form.cleaned_data['lastfm_api_key']
+        gracenote_client_id = form.cleaned_data['gracenote_client_id']
 
         if(settings):
+
+            # Gracenote
+            if settings[0].gracenote_user_id is None or settings[0].gracenote_client_id != gracenote_client_id:
+                gracenote_user_id = pygn.register(gracenote_client_id)
+
+                settings[0].set_gracenote_client_id(gracenote_client_id)
+                settings[0].set_gracenote_user_id(gracenote_user_id)
+
+                logger.debug("Registered Gracenote client id {} and got user Id {}".format(gracenote_client_id, gracenote_user_id))
+
+            # Plex
             settings[0].set_db_path(db_path)
             settings[0].set_plex_username(plex_username)
+
+            # LastFM
             settings[0].set_lastfm_username(lastfm_username)
             settings[0].set_lastfm_api_key(lastfm_api_key)
+
             settings[0].save()
         else:
             settings = Settings()
+
+            # Gracenote
+            gracenote_user_id = pygn.register(gracenote_client_id)
+            settings.set_gracenote_client_id(gracenote_client_id)
+            settings.set_gracenote_user_id(gracenote_user_id)
+
+            # Plex
             settings.set_plex_username(plex_username)
             settings.set_db_path(db_path)
+
+            # LastFM
             settings.set_lastfm_username(lastfm_username)
             settings.set_lastfm_api_key(lastfm_api_key)
+
             settings.save()
 
     # Always return an HttpResponseRedirect after successfully dealing

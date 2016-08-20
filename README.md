@@ -39,6 +39,21 @@ python manage.py runserver
 6. py manage.py runserver
 7. Go to http://localhost/8000/musicTool
 
+## Mac Install steps
+
+** Warning: Make a backup of your Plex database before performing any actions with the Plex Music Tool **
+
+1. Python 2.7
+2. Pip https://pip.pypa.io/en/latest/installing/
+3. Open a command prompt in the project directory
+4. `virtualenv venv --distribute`
+5. `source venv/bin/activate` (run deactivate to end)
+3. pip install -r requirements.txt
+4. py manage.py makemigrations
+5. py manage.py migrate
+6. py manage.py runserver
+7. Go to http://localhost/8000/musicTool
+
 
 ## Usage
 
@@ -47,6 +62,7 @@ python manage.py runserver
 * Plex Username:  Your Plex username, note that if you are the owner of the library then your username will be 'Administrator'.
 * LastFm Username:  Your LastFm username.
 * LastFm Api Key:  Your LastFm API key.  You can get one here: http://www.last.fm/api
+* Gracenote Client ID: Your Gracenote Client ID.  You can register for one here: https://developer.gracenote.com/plans
 * Update Settings:  Updates your settings in for the Plex Music Tool.  Currently only supports one user at a time, changing the user name will overwrite the existing users settings.
 
 ### Sync LastFm Scrobbles

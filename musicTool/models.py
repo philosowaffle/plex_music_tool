@@ -18,6 +18,8 @@ class Settings(models.Model):
     plex_username = models.CharField(max_length=20, null=True)
     lastfm_username = models.CharField(max_length=20, null=True)
     lastfm_api_key = models.CharField(max_length=30, null=True)
+    gracenote_client_id = models.CharField(max_length=50, null=True)
+    gracenote_user_id = models.CharField(max_length=50, null=True)
 
     # METHODS
     def set_db_path(self, new_path):
@@ -32,12 +34,20 @@ class Settings(models.Model):
     def set_plex_username(self, new_plex_username):
         self.plex_username = new_plex_username
 
+    def set_gracenote_client_id(self, new_client_id):
+        self.gracenote_client_id = new_client_id
+
+    def set_gracenote_user_id(self, new_user_id):
+        self.gracenote_user_id = new_user_id
+
     # HELPERS
     def __str__(self):
         return 'DB Path: {}' \
                 '\nPlex Username: {}' \
                 '\nLastFm Username: {}' \
-                '\nLastFm Api Key: {}'.format(self.plex_db_path, self.plex_username, self.lastfm_username, self.lastfm_api_key)
+                '\nLastFm Api Key: {}' \
+                '\nGracenote Client ID: {}'\
+                '\nGracenote User ID: {}'.format(self.plex_db_path, self.plex_username, self.lastfm_username, self.lastfm_api_key, gracenote_client_id, gracenote_user_id)
 
 @python_2_unicode_compatible
 class Playlist(models.Model):
@@ -164,13 +174,16 @@ class SettingsForm(forms.Form):
     plex_username = forms.CharField(label='Plex Username', max_length=20)
     lastfm_username = forms.CharField(label='LastFm Username', max_length=20)
     lastfm_api_key = forms.CharField(label='LastFm Api Key', max_length=50)
+    gracenote_client_id = forms.CharField(label='Gracenote Client ID', max_length=50)
+    gracenote_user_id = forms.CharField(label='Gracenote User ID', disabled=True)
 
     # HELPERS
     def __str__(self):
         return 'Database Path: {}' \
                 '\nPlex Username: {}' \
                 '\nLastFm Username: {}' \
-                '\nLastFm Api Key: {}'.format(self.db_path, self.plex_username, self.lastfm_username, self.lastfm_api_key)
+                '\nLastFm Api Key: {}'\
+                '\nGracenote Client ID: {}'.format(self.db_path, self.plex_username, self.lastfm_username, self.lastfm_api_key, gracenote_client_id)
 
 class PlaylistForm(forms.Form):
 

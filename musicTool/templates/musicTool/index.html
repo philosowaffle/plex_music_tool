@@ -28,7 +28,7 @@
     <h3>Settings</h3>
     <form action="{% url 'musicTool:setSettings' %}" method="post">
         {% csrf_token %}
-        {% bootstrap_form settings_form layout='inline' %}
+        {% bootstrap_form settings_form %}
         {% buttons %}
                 <button type="submit" class="btn btn-primary">Update Settings</button>
         {% endbuttons %}

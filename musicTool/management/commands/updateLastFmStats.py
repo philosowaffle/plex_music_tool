@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 from musicTool.models import Task, Async
 
 import musicTool.async_runner as async_runner
+import musicTool.pygn as pygn
 
 import logging
 import requests
@@ -116,7 +117,7 @@ def update_lastfm(options):
 
                                     INSERT INTO metadata_item_settings (guid, account_id, view_count)  SELECT guid, {2}, {0} FROM metadata_items WHERE metadata_type = 10 AND UPPER(title) = UPPER({1}) AND changes() = 0;
                                 \"\"\"""".format(song_playcount, song_name, plex_user_id, song_artist)
-                
+
                 if set_counter is 0:
                     query = single_query
                     set_counter = set_counter + 1
